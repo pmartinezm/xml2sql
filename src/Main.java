@@ -24,25 +24,25 @@ public class Main {
     }
 
     public static void main3(String[] args) {
-        Xml2Java xj = new Xml2Java("/home/pablo/Escritorio/ExportacionHorarios-1.xml");
-        Document doc = xj.getXmlDoc();
-        Filter filter = new Filter(doc);
-
-        ArrayList<Node> cursos = filter.getCursos();
-        int cont = 0;
-        for (Node nodo : cursos) {
-            System.out.println(((Element) nodo).getAttribute("seq"));
-            if (nodo.hasChildNodes() && cont != 0) {
-                NodeList hijos = ((Element) nodo).getElementsByTagName("dato");
-                for (int i = 0; i < hijos.getLength(); i++) {
-                    Node hijo = hijos.item(i);
-                    Element elemento = (Element) hijo;
-                    String atributo = elemento.getAttribute("nombre_dato");
-                    System.out.println(atributo + ": " + hijo.getTextContent());
-                }
-            }
-            cont++;
-        }
+//        Xml2Java xj = new Xml2Java("/home/pablo/Escritorio/ExportacionHorarios-1.xml");
+//        Document doc = xj.getXmlDoc();
+//        Filter filter = new Filter(doc);
+//
+//        ArrayList<Node> cursos = filter.getCursos();
+//        int cont = 0;
+//        for (Node nodo : cursos) {
+//            System.out.println(((Element) nodo).getAttribute("seq"));
+//            if (nodo.hasChildNodes() && cont != 0) {
+//                NodeList hijos = ((Element) nodo).getElementsByTagName("dato");
+//                for (int i = 0; i < hijos.getLength(); i++) {
+//                    Node hijo = hijos.item(i);
+//                    Element elemento = (Element) hijo;
+//                    String atributo = elemento.getAttribute("nombre_dato");
+//                    System.out.println(atributo + ": " + hijo.getTextContent());
+//                }
+//            }
+//            cont++;
+//        }
     }
 
     public static void main2(String[] args) {

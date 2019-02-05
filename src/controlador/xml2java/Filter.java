@@ -1,65 +1,17 @@
 package controlador.xml2java;
 
-import org.w3c.dom.*;
-import util.Log;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Filter {
     private Document doc;
 
-    public Filter(Document xmlDocument) {
-        this.doc = xmlDocument;
-    }
-
-    /**
-     * Obtiene los nodos del documento cuyo tag sea "grupo_datos".
-     *
-     * @return un arraylist con los nodos de tipo "grupo_datos" cuyo atributo req sea "CURSO".
-     */
-    public ArrayList<Node> getCursos() {
-        ArrayList<Node> cursos = new ArrayList<>();
-        NodeList nodos = this.doc.getElementsByTagName("grupo_datos");
-
-        for (int i = 0; i < nodos.getLength(); i++) {
-            Node nodo = nodos.item(i);
-            Element elemento = (Element) nodo;
-
-            String atributo = elemento.getAttribute("seq");
-
-            if (atributo.startsWith("CURSO")) {
-                cursos.add(nodo);
-            }
-        }
-        return cursos;
-    }
-
-    /**
-     * Obtiene los nodos de tipo TAG que tengan un atributo ATRIB que empieze por CONTIENE.
-     * <elemento atrib="contiene"></elemento>
-     *
-     * @param tag
-     * @param atrib
-     * @param contiene
-     * @return arrayList con los nodos que respondan a la fórmula.
-     */
-    public ArrayList<Node> getNodes(String tag, String atrib, String contiene) {
-        ArrayList<Node> cursos = new ArrayList<>();
-        NodeList nodos = this.doc.getElementsByTagName(tag);
-
-        for (int i = 0; i < nodos.getLength(); i++) {
-            Node nodo = nodos.item(i);
-            Element elemento = (Element) nodo;
-
-            String atributo = elemento.getAttribute(atrib);
-
-            if (atributo.startsWith(contiene)) {
-                cursos.add(nodo);
-            }
-        }
-        return cursos;
+    public Filter(Document doc) {
+        this.doc = doc;
     }
 
     /**
