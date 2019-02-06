@@ -1,9 +1,7 @@
 package controlador.xml2java;
 
 import modelo.ExpresionesRegulares;
-import modelo.entidades.Curso;
-import modelo.entidades.Materia;
-import modelo.entidades.Profesor;
+import modelo.entidades.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -12,12 +10,11 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-public class Filter {
+public class Filtro {
     private Document doc;
 
-    public Filter(Document doc) {
+    public Filtro(Document doc) {
         this.doc = doc;
     }
 
@@ -115,5 +112,32 @@ public class Filter {
             profesores.add(new Profesor(mapa));
         }
         return profesores;
+    }
+
+    public ArrayList<Actividad> getActividades() {
+        ArrayList<Actividad> actividades = new ArrayList<>();
+        ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Actividad.getExpresion(), "grupo_datos", "seq");
+        for (Map mapa : mapas) {
+            actividades.add(new Actividad(mapa));
+        }
+        return actividades;
+    }
+
+    public ArrayList<Dependencia> getDependencias() {
+        ArrayList<Dependencia> dependencias = new ArrayList<>();
+        ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Dependencia.getExpresion(), "grupo_datos", "seq");
+        for (Map mapa : mapas) {
+            dependencias.add(new Dependencia(mapa));
+        }
+        return dependencias;
+    }
+
+    public ArrayList<Tramo> getTramos() {
+        ArrayList<Tramo> tramos = new ArrayList<>();
+        ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Tramo.getExpresion(), "grupo_datos", "seq");
+        for (Map mapa : mapas) {
+            tramos.add(new Tramo(mapa));
+        }
+        return tramos;
     }
 }

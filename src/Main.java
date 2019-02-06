@@ -1,37 +1,29 @@
-import controlador.xml2java.Filter;
+import controlador.xml2java.Filtro;
 import controlador.xml2java.Xml2Java;
-import modelo.ExpresionesRegulares;
-import modelo.entidades.Curso;
-import modelo.entidades.Materia;
-import modelo.entidades.Profesor;
+import modelo.entidades.*;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import util.Log;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-public class Main {
+public class Main<T> {
     public static void main(String[] args) {
         Xml2Java xj = new Xml2Java("/home/pablo/Escritorio/ExportacionHorarios-1.xml");
         Document doc = xj.getXmlDoc();
-        Filter filter = new Filter(doc);
+        Filtro filtro = new Filtro(doc);
 
-        ArrayList<Curso> cursos = filter.getCursos();
-        for (Curso curso : cursos) {
-            System.out.println(curso.toString());
-        }
+        ArrayList<Curso> cursos = filtro.getCursos();
+        ArrayList<Materia> materias = filtro.getMaterias();
+        ArrayList<Profesor> profesores = filtro.getProfesores();
+        ArrayList<Actividad> actividades = filtro.getActividades();
+        ArrayList<Dependencia> dependencias = filtro.getDependencias();
+        ArrayList<Tramo> tramos = filtro.getTramos();
 
-        ArrayList<Materia> materias = filter.getMaterias();
-        for (Materia materia : materias) {
-            System.out.println(materia.toString());
-        }
-
-        ArrayList<Profesor> profesores = filter.getProfesores();
-        for (Profesor profesor : profesores) {
-            System.out.println(profesor.toString());
-        }
+        System.out.println(cursos);
+        System.out.println(materias);
+        System.out.println(profesores);
+        System.out.println(cursos);
+        System.out.println(actividades);
+        System.out.println(dependencias);
+        System.out.println(tramos);
     }
 }
