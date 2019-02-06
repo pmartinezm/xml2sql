@@ -1,19 +1,34 @@
 package modelo.entidades;
 
-public class Curso {
-    private String idCurso;
-    private String nombreCurso;
+import java.lang.reflect.Field;
+import java.util.Map;
 
-    public Curso(String idCurso, String nombreCurso) {
-        this.idCurso = idCurso;
-        this.nombreCurso = nombreCurso;
+public class Curso {
+    private String X_OFERTAMATRIG;
+    private String D_OFERTAMATRIG;
+
+    public Curso(String X_OFERTAMATRIG, String D_OFERTAMATRIG) {
+        this.X_OFERTAMATRIG = X_OFERTAMATRIG;
+        this.D_OFERTAMATRIG = D_OFERTAMATRIG;
+    }
+
+    public Curso(Map<String, String> mapa) {
+        try {
+            Field[] propiedades = this.getClass().getDeclaredFields();
+
+            for (Field propiedad : propiedades) {
+                this.getClass().getDeclaredField(propiedad.getName()).set(this, mapa.get(propiedad.getName()));
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getIdCurso() {
-        return idCurso;
+        return X_OFERTAMATRIG;
     }
 
     public String getNombreCurso() {
-        return nombreCurso;
+        return D_OFERTAMATRIG;
     }
 }

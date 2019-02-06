@@ -1,6 +1,7 @@
 package controlador.xml2java;
 
 import modelo.ExpresionesRegulares;
+import modelo.entidades.Curso;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -9,6 +10,7 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Filter {
     private Document doc;
@@ -83,7 +85,16 @@ public class Filter {
             }
             mapas.add(mapa);
         }
-
         return mapas;
+    }
+
+    public ArrayList<Curso> getCursos() {
+        ArrayList<Curso> cursos = new ArrayList<>();
+        ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Curso.getExpresion(), "grupo_datos", "seq");
+        for (Map mapa :
+                mapas) {
+            cursos.add(new Curso(mapa));
+        }
+        return cursos;
     }
 }

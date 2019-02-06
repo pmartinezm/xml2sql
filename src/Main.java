@@ -17,12 +17,9 @@ public class Main {
         Document doc = xj.getXmlDoc();
         Filter filter = new Filter(doc);
 
-        ArrayList<Map<String, String>> mapas = filter.getNodosMap(ExpresionesRegulares.Curso.getExpresion(), "grupo_datos", "seq");
-        System.out.println("Size: " + mapas.size());
-        System.out.println("Keys: " + mapas.get(0).keySet());
-        for (Map mapa :
-                mapas) {
-
+        ArrayList<Curso> cursos = filter.getCursos();
+        for (Curso curso : cursos) {
+            System.out.println(curso.getIdCurso() + " " + curso.getNombreCurso());
         }
     }
 
