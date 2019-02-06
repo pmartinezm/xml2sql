@@ -24,6 +24,20 @@ public class Curso {
         }
     }
 
+    @Override
+    public String toString() {
+        String ts = "";
+        try {
+            Field[] propiedades = this.getClass().getDeclaredFields();
+            for (Field propiedad : propiedades) {
+                ts += propiedad.get(this) + " ";
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return ts;
+    }
+
     public String getIdCurso() {
         return X_OFERTAMATRIG;
     }

@@ -2,6 +2,8 @@ package controlador.xml2java;
 
 import modelo.ExpresionesRegulares;
 import modelo.entidades.Curso;
+import modelo.entidades.Materia;
+import modelo.entidades.Profesor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -69,7 +71,7 @@ public class Filter {
     }
 
     public ArrayList<Map<String, String>> getNodosMap(String expresionRegular, String padre, String atrib) {
-        ArrayList<Node> lista = this.getNodos(ExpresionesRegulares.Curso.getExpresion(), padre, atrib);
+        ArrayList<Node> lista = this.getNodos(expresionRegular, padre, atrib);
         ArrayList<Map<String, String>> mapas = new ArrayList<Map<String, String>>();
 
         for (Node nodo : lista) {
@@ -91,10 +93,27 @@ public class Filter {
     public ArrayList<Curso> getCursos() {
         ArrayList<Curso> cursos = new ArrayList<>();
         ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Curso.getExpresion(), "grupo_datos", "seq");
-        for (Map mapa :
-                mapas) {
+        for (Map mapa : mapas) {
             cursos.add(new Curso(mapa));
         }
         return cursos;
+    }
+
+    public ArrayList<Materia> getMaterias() {
+        ArrayList<Materia> materias = new ArrayList<>();
+        ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Materia.getExpresion(), "grupo_datos", "seq");
+        for (Map mapa : mapas) {
+            materias.add(new Materia(mapa));
+        }
+        return materias;
+    }
+
+    public ArrayList<Profesor> getProfesores() {
+        ArrayList<Profesor> profesores = new ArrayList<>();
+        ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Profesor.getExpresion(), "grupo_datos", "seq");
+        for (Map mapa : mapas) {
+            profesores.add(new Profesor(mapa));
+        }
+        return profesores;
     }
 }
