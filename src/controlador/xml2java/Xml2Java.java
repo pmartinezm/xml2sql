@@ -30,7 +30,7 @@ public class Xml2Java {
             Log.msg("File found.");
             return file;
         }
-        Log.error("File does not exist.");
+        Log.error("El archino no existe");
         return null;
     }
 

@@ -72,10 +72,10 @@ public class Filtro {
     }
 
     /**
-     * @param expresionRegular
-     * @param padre
-     * @param atrib
-     * @return ArrayList de mapas con clave/valor
+     * @param expresionRegular expresión para filtar
+     * @param padre tag del padre
+     * @param atrib tag del atributo
+     * @return ArrayList de mapas con clave/valor nombre atributo/valor atributo.
      */
     public ArrayList<Map<String, String>> getNodosMap(String expresionRegular, String padre, String atrib) {
         ArrayList<Node> nodos = this.getNodos(expresionRegular, padre, atrib);
