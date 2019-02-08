@@ -40,15 +40,15 @@ public class Materia {
         return ts;
     }
 
-    public String getCodigoCurso() {
+    public String getX_OFERTAMATRIG() {
         return X_OFERTAMATRIG;
     }
 
-    public String getCodigoMateria() {
+    public String getX_MATERIAOMG() {
         return X_MATERIAOMG;
     }
 
-    public String getNombreMateria() {
+    public String getD_MATERIAC() {
         return D_MATERIAC;
     }
 }

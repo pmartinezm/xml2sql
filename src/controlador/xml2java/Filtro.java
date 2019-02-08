@@ -1,5 +1,6 @@
 package controlador.xml2java;
 
+import modelo.Clases;
 import modelo.ExpresionesRegulares;
 import modelo.entidades.*;
 import org.w3c.dom.Document;
@@ -7,6 +8,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,11 +71,17 @@ public class Filtro {
         return lista;
     }
 
+    /**
+     * @param expresionRegular
+     * @param padre
+     * @param atrib
+     * @return ArrayList de mapas con clave/valor
+     */
     public ArrayList<Map<String, String>> getNodosMap(String expresionRegular, String padre, String atrib) {
-        ArrayList<Node> lista = this.getNodos(expresionRegular, padre, atrib);
+        ArrayList<Node> nodos = this.getNodos(expresionRegular, padre, atrib);
         ArrayList<Map<String, String>> mapas = new ArrayList<Map<String, String>>();
 
-        for (Node nodo : lista) {
+        for (Node nodo : nodos) {
             NodeList hijos = ((Element) nodo).getElementsByTagName("dato");
 
             Map<String, String> mapa = new HashMap<>();
@@ -87,57 +97,79 @@ public class Filtro {
         return mapas;
     }
 
+    public ArrayList<Object> get(ExpresionesRegulares expresion, Clases clase) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+        Class<?> obj = Class.forName(clase.getClase());
+
+        ArrayList<Object> lista = new ArrayList<>();
+        ArrayList<Map<String, String>> mapas = this.getNodosMap(expresion.getExpresion(), "grupo_datos", "seq");
+
+        for (Map mapa : mapas) {
+            Object instancia = obj.getConstructor(Map.class).newInstance(mapa);
+            lista.add(instancia);
+        }
+
+        return lista;
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Xml2Java xj = new Xml2Java("/home/pablo/Escritorio/ExportacionHorarios-1.xml");
+        Document doc = xj.getXmlDoc();
+        Filtro filtro = new Filtro(doc);
+
+
+    }
+
     public ArrayList<Curso> getCursos() {
-        ArrayList<Curso> cursos = new ArrayList<>();
+        ArrayList<Curso> lista = new ArrayList<>();
         ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Curso.getExpresion(), "grupo_datos", "seq");
         for (Map mapa : mapas) {
-            cursos.add(new Curso(mapa));
+            lista.add(new Curso(mapa));
         }
-        return cursos;
+        return lista;
     }
 
     public ArrayList<Materia> getMaterias() {
-        ArrayList<Materia> materias = new ArrayList<>();
+        ArrayList<Materia> lista = new ArrayList<>();
         ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Materia.getExpresion(), "grupo_datos", "seq");
         for (Map mapa : mapas) {
-            materias.add(new Materia(mapa));
+            lista.add(new Materia(mapa));
         }
-        return materias;
+        return lista;
     }
 
     public ArrayList<Profesor> getProfesores() {
-        ArrayList<Profesor> profesores = new ArrayList<>();
+        ArrayList<Profesor> lista = new ArrayList<>();
         ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Profesor.getExpresion(), "grupo_datos", "seq");
         for (Map mapa : mapas) {
-            profesores.add(new Profesor(mapa));
+            lista.add(new Profesor(mapa));
         }
-        return profesores;
+        return lista;
     }
 
     public ArrayList<Actividad> getActividades() {
-        ArrayList<Actividad> actividades = new ArrayList<>();
+        ArrayList<Actividad> lista = new ArrayList<>();
         ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Actividad.getExpresion(), "grupo_datos", "seq");
         for (Map mapa : mapas) {
-            actividades.add(new Actividad(mapa));
+            lista.add(new Actividad(mapa));
         }
-        return actividades;
+        return lista;
     }
 
     public ArrayList<Dependencia> getDependencias() {
-        ArrayList<Dependencia> dependencias = new ArrayList<>();
+        ArrayList<Dependencia> lista = new ArrayList<>();
         ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Dependencia.getExpresion(), "grupo_datos", "seq");
         for (Map mapa : mapas) {
-            dependencias.add(new Dependencia(mapa));
+            lista.add(new Dependencia(mapa));
         }
-        return dependencias;
+        return lista;
     }
 
     public ArrayList<Tramo> getTramos() {
-        ArrayList<Tramo> tramos = new ArrayList<>();
+        ArrayList<Tramo> lista = new ArrayList<>();
         ArrayList<Map<String, String>> mapas = this.getNodosMap(ExpresionesRegulares.Tramo.getExpresion(), "grupo_datos", "seq");
         for (Map mapa : mapas) {
-            tramos.add(new Tramo(mapa));
+            lista.add(new Tramo(mapa));
         }
-        return tramos;
+        return lista;
     }
 }
